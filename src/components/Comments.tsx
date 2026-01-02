@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import { createClient } from '@/lib/supabase/client';
 import { Reply, X } from 'lucide-react';
+import LikeButton from '@/components/LikeButton';
 
 interface Comment {
   id: string;
@@ -11,6 +12,7 @@ interface Comment {
   created_at: string;
   parent_type: string;
   parent_id: string;
+  like_count?: number;
   user: {
     id: string;
     username: string | null;
@@ -158,6 +160,15 @@ function CommentItem({
         <p className="text-stone-700 leading-relaxed whitespace-pre-wrap mb-3">
           {comment.content}
         </p>
+
+        {/* Like Button */}
+        <div className="mb-3">
+          <LikeButton
+            id={comment.id}
+            type="comment"
+            initialLikeCount={comment.like_count || 0}
+          />
+        </div>
 
         {/* Reply Form */}
         {showReplyForm && (

@@ -7,6 +7,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import Comments from '@/components/Comments';
 import SocialShare from '@/components/SocialShare';
+import LikeButton from '@/components/LikeButton';
 
 interface Essay {
   id: string;
@@ -20,6 +21,7 @@ interface Essay {
   word_count: number | null;
   read_time_minutes: number | null;
   view_count: number;
+  like_count: number;
   created_at: string;
   updated_at: string;
   user: {
@@ -251,8 +253,14 @@ export default function EssayPage() {
           </div>
         )}
 
-        {/* Social Share */}
-        <div className="flex justify-center mb-12 pb-12 border-b border-stone-200">
+        {/* Social Share & Like */}
+        <div className="flex justify-center items-center gap-6 mb-12 pb-12 border-b border-stone-200">
+          <LikeButton
+            id={essay.id}
+            type="essay"
+            initialLikeCount={essay.like_count || 0}
+            showLabel={true}
+          />
           <SocialShare
             url={essayUrl}
             title={essay.title}
