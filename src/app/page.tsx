@@ -1,8 +1,11 @@
 import Link from 'next/link';
+import ShareRibbon from '@/components/ShareRibbon';
 
 export default function Home() {
   return (
     <div className="relative space-y-0 pb-0">
+      {/* Floating Share Button */}
+      <ShareRibbon position="floating" />
 
       {/* Achievement Ribbons - Responsive */}
       {/* Mobile: Horizontal below header */}

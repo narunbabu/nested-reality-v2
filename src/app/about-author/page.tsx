@@ -28,9 +28,9 @@ export default function AboutAuthorPage() {
       </div>
 
       <div className="space-y-12">
-        <div className="aspect-square bg-stone-200 grayscale contrast-125 overflow-hidden">
+        <div className="aspect-square bg-stone-200 overflow-hidden">
           <img
-            src="https://picsum.photos/seed/arun/800/800"
+            src="/images/arun-bg.png"
             alt="Author portrait"
             className="w-full h-full object-cover"
           />

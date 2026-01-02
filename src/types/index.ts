@@ -157,6 +157,21 @@ export interface CommentFormData {
   content: string;
 }
 
+export interface AIReview {
+  id: string;
+  title: string;
+  subtitle: string;
+  category: string;
+  rating: number;
+  date: string;
+  excerpt: string;
+  sections: {
+    title: string;
+    content: string;
+  }[];
+  keyTakeaways?: string[];
+}
+
 export interface RegisterFormData {
   email: string;
   password: string;
