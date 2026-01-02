@@ -106,16 +106,16 @@ export default function AdminPage() {
         const essays = data.data.data;
         setAllEssays(essays);
 
-        const pending = essays.filter((e: DatabaseEssay) => !e.is_approved && e.is_published);
+        const pending = essays.filter((e: EssayWithUser) => !e.is_approved && e.is_published);
         setPendingEssays(pending);
 
         setStats(prev => ({
           ...prev,
           essays: {
             total: essays.length,
-            published: essays.filter((e: DatabaseEssay) => e.is_published && e.is_approved).length,
+            published: essays.filter((e: EssayWithUser) => e.is_published && e.is_approved).length,
             pending: pending.length,
-            draft: essays.filter((e: DatabaseEssay) => !e.is_published).length,
+            draft: essays.filter((e: EssayWithUser) => !e.is_published).length,
           }
         }));
       }
