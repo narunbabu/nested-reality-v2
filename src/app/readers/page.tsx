@@ -1,5 +1,4 @@
-import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
-import { cookies } from 'next/headers';
+import { createClient } from '@/lib/supabase/server';
 import { redirect } from 'next/navigation';
 import ReadingProgressTracker from '@/components/ReadingProgressTracker';
 import ReadingProgressStats from '@/components/ReadingProgressStats';
@@ -7,7 +6,7 @@ import ReadingProgressStats from '@/components/ReadingProgressStats';
 export const dynamic = 'force-dynamic';
 
 export default async function ReadersPage() {
-  const supabase = createServerComponentClient({ cookies });
+  const supabase = await createClient();
 
   const { data: { user } } = await supabase.auth.getUser();
 

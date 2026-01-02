@@ -1,13 +1,12 @@
-import { createRouteHandlerClient } from '@supabase/auth-helpers-nextjs';
-import { cookies } from 'next/headers';
+import { createClient } from '@/lib/supabase/server';
 import { NextRequest, NextResponse } from 'next/server';
 
 export async function POST(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    const supabase = createRouteHandlerClient({ cookies });
+    const supabase = await createClient();
 
     // Check if user is authenticated
     const { data: { user }, error: authError } = await supabase.auth.getUser();
@@ -19,7 +18,7 @@ export async function POST(
       );
     }
 
-    const commentId = params.id;
+    const { id: commentId } = await params;
     const userId = user.id;
 
     // Check if comment exists
@@ -97,10 +96,10 @@ export async function POST(
 
 export async function GET(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    const supabase = createRouteHandlerClient({ cookies });
+    const supabase = await createClient();
 
     // Check if user is authenticated
     const { data: { user } } = await supabase.auth.getUser();
@@ -112,7 +111,7 @@ export async function GET(
       );
     }
 
-    const commentId = params.id;
+    const { id: commentId } = await params;
     const userId = user.id;
 
     // Check if user liked this comment
