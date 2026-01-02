@@ -43,11 +43,11 @@ export default function Navigation() {
   ];
 
   return (
-    <nav className="sticky top-0 z-50 bg-stone-50/90 backdrop-blur-md border-b border-stone-200">
+    <nav className="sticky top-0 z-50 bg-black/90 backdrop-blur-md border-b border-stone-800">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-16 items-center">
           <div className="flex-shrink-0">
-            <Link href="/" className="text-xl font-bold tracking-tight text-stone-900 font-serif">
+            <Link href="/" className="text-xl font-bold tracking-tight text-stone-100 font-serif">
               NESTED REALITY
             </Link>
           </div>
@@ -60,8 +60,8 @@ export default function Navigation() {
                 href={item.href}
                 className={`text-sm font-medium transition-colors ${
                   pathname === item.href
-                    ? 'text-stone-900 border-b-2 border-stone-900'
-                    : 'text-stone-500 hover:text-stone-900'
+                    ? 'text-[#C5A059] border-b-2 border-[#C5A059]'
+                    : 'text-stone-400 hover:text-[#C5A059]'
                 } py-5 px-1`}
               >
                 {item.label}
@@ -71,13 +71,13 @@ export default function Navigation() {
               <>
                 <Link
                   href="/dashboard"
-                  className="text-sm font-medium text-stone-500 hover:text-stone-900 py-5 px-1"
+                  className="text-sm font-medium text-stone-400 hover:text-[#C5A059] py-5 px-1"
                 >
                   Dashboard
                 </Link>
                 <button
                   onClick={handleLogout}
-                  className="text-sm font-medium text-stone-500 hover:text-stone-900 py-5 px-1"
+                  className="text-sm font-medium text-stone-400 hover:text-[#C5A059] py-5 px-1"
                 >
                   Logout
                 </button>
@@ -85,7 +85,7 @@ export default function Navigation() {
             ) : (
               <Link
                 href="/login"
-                className="text-sm font-medium text-stone-500 hover:text-stone-900 py-5 px-1"
+                className="text-sm font-medium text-stone-400 hover:text-[#C5A059] py-5 px-1"
               >
                 Login
               </Link>
@@ -96,7 +96,7 @@ export default function Navigation() {
           <div className="md:hidden">
             <button
               onClick={() => setIsOpen(!isOpen)}
-              className="text-stone-500 p-2"
+              className="text-stone-400 p-2"
               aria-label="Toggle Menu"
             >
               <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -109,14 +109,14 @@ export default function Navigation() {
 
       {/* Mobile Menu */}
       {isOpen && (
-        <div className="md:hidden bg-stone-50 border-b border-stone-200 py-4 px-4 space-y-4">
+        <div className="md:hidden bg-stone-950 border-b border-stone-800 py-4 px-4 space-y-4">
           {navItems.map((item) => (
             <Link
               key={item.href}
               href={item.href}
               onClick={() => setIsOpen(false)}
               className={`block text-lg font-medium ${
-                pathname === item.href ? 'text-stone-900' : 'text-stone-700 hover:text-stone-900'
+                pathname === item.href ? 'text-[#C5A059]' : 'text-stone-300 hover:text-[#C5A059]'
               }`}
             >
               {item.label}
@@ -127,7 +127,7 @@ export default function Navigation() {
               <Link
                 href="/dashboard"
                 onClick={() => setIsOpen(false)}
-                className="block text-lg font-medium text-stone-700 hover:text-stone-900"
+                className="block text-lg font-medium text-stone-300 hover:text-[#C5A059]"
               >
                 Dashboard
               </Link>
@@ -136,7 +136,7 @@ export default function Navigation() {
                   handleLogout();
                   setIsOpen(false);
                 }}
-                className="block text-lg font-medium text-stone-700 hover:text-stone-900 w-full text-left"
+                className="block text-lg font-medium text-stone-300 hover:text-[#C5A059] w-full text-left"
               >
                 Logout
               </button>
@@ -145,7 +145,7 @@ export default function Navigation() {
             <Link
               href="/login"
               onClick={() => setIsOpen(false)}
-              className="block text-lg font-medium text-stone-700 hover:text-stone-900"
+              className="block text-lg font-medium text-stone-300 hover:text-[#C5A059]"
             >
               Login
             </Link>
