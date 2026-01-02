@@ -42,10 +42,26 @@ export async function GET(request: Request) {
     const start = (page - 1) * limit
     const end = start + limit - 1
 
+    // Build count query with same filters
+    let countQuery = supabase
+      .from('reviews')
+      .select('*', { count: 'exact', head: true })
+
+    if (!userId) {
+      countQuery = countQuery.eq('is_approved', true)
+    }
+    if (userId) {
+      countQuery = countQuery.eq('user_id', userId)
+    }
+    if (rating) {
+      countQuery = countQuery.eq('rating', parseInt(rating))
+    }
+    if (featured === 'true') {
+      countQuery = countQuery.eq('is_featured', true)
+    }
+
     // Get total count
-    const { count } = await query
-    .clone()
-    .select('*', { count: 'exact', head: true })
+    const { count } = await countQuery
 
     // Get paginated results
     const { data: reviews, error } = await query

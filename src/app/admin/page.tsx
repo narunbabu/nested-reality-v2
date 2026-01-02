@@ -421,7 +421,7 @@ function EssayCard({
   onModerate,
   loading,
 }: {
-  essay: DatabaseEssay;
+  essay: EssayWithUser;
   onModerate: (id: string, action: 'approve' | 'reject' | 'unpublish') => Promise<void>;
   loading: boolean;
 }) {
