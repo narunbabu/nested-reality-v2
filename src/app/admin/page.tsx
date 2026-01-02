@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { createClient } from '@/lib/supabase/client';
-import { Review, DatabaseEssay } from '@/types';
+import { Review, EssayWithUser } from '@/types';
 
 type TabType = 'reviews' | 'essays';
 
@@ -19,8 +19,8 @@ export default function AdminPage() {
   const [allReviews, setAllReviews] = useState<Review[]>([]);
 
   // Essay state
-  const [allEssays, setAllEssays] = useState<DatabaseEssay[]>([]);
-  const [pendingEssays, setPendingEssays] = useState<DatabaseEssay[]>([]);
+  const [allEssays, setAllEssays] = useState<EssayWithUser[]>([]);
+  const [pendingEssays, setPendingEssays] = useState<EssayWithUser[]>([]);
 
   const [stats, setStats] = useState({
     reviews: { total: 0, pending: 0, approved: 0, rejected: 0 },
