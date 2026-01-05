@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { DISCUSSIONS } from '@/lib/constants';
 import { Discussion } from '@/types';
 import Link from 'next/link';
+import ShareRibbon from '@/components/ShareRibbon';
 
 // Simple markdown parser for WhatsApp-style formatting with newline and bullet support
 const parseMarkdown = (text: string): React.ReactNode => {
@@ -107,15 +108,44 @@ const parseMarkdown = (text: string): React.ReactNode => {
 export default function DiscussionsPage() {
   const [selectedDiscussion, setSelectedDiscussion] = useState<Discussion | null>(null);
 
+  // Handle discussion selection with URL update
+  const handleSelectDiscussion = (discussion: Discussion) => {
+    setSelectedDiscussion(discussion);
+    if (typeof window !== 'undefined') {
+      window.history.pushState({}, '', `#${discussion.id}`);
+    }
+  };
+
+  const handleBack = () => {
+    setSelectedDiscussion(null);
+    if (typeof window !== 'undefined') {
+      window.history.pushState({}, '', window.location.pathname);
+    }
+  };
+
   if (selectedDiscussion) {
+    // Generate rich description for social sharing
+    const shareTitle = `${selectedDiscussion.title} - Nested Reality Discussion`;
+    const shareDescription = `${selectedDiscussion.subtitle} Join this thoughtful exchange exploring ${selectedDiscussion.tags.join(', ')}. A scholarly discussion on density-based physics and the nature of reality.`;
+    const baseUrl = typeof window !== 'undefined' ? window.location.origin : 'https://nestedreality.com';
+    const shareUrl = `${baseUrl}/discussions#${selectedDiscussion.id}`;
+
     return (
       <div className="max-w-4xl mx-auto px-6 py-24 space-y-12 animate-in fade-in duration-500">
         <button
-          onClick={() => setSelectedDiscussion(null)}
+          onClick={handleBack}
           className="text-sm font-bold text-stone-400 hover:text-stone-900 transition-colors flex items-center gap-2"
         >
           &larr; Back to Discussions
         </button>
+
+        {/* Floating Share Button */}
+        <ShareRibbon
+          position="floating"
+          title={shareTitle}
+          description={shareDescription}
+          url={shareUrl}
+        />
 
         <header className="space-y-6 border-b border-stone-200 pb-8">
           <div className="flex items-center gap-4 text-xs font-bold uppercase tracking-widest text-stone-400">
@@ -237,7 +267,7 @@ export default function DiscussionsPage() {
         {DISCUSSIONS.map((discussion) => (
           <article
             key={discussion.id}
-            onClick={() => setSelectedDiscussion(discussion)}
+            onClick={() => handleSelectDiscussion(discussion)}
             className="group border border-stone-200 hover:border-stone-400 hover:shadow-lg transition-all duration-300 p-8 rounded-lg bg-gradient-to-br from-white to-stone-50 cursor-pointer"
           >
             <div className="space-y-6">
@@ -288,12 +318,27 @@ export default function DiscussionsPage() {
         <p className="max-w-xl mx-auto opacity-80">
           Are you engaging deeply with Nested Reality? We welcome scholarly discussions and critical exchanges that advance our understanding of density-based physics.
         </p>
-        <Link
-          href="/contact"
-          className="inline-block px-8 py-3 border border-white/20 hover:border-white transition-all text-sm font-bold uppercase tracking-widest"
-        >
-          Start a Discussion
-        </Link>
+        <div className="flex flex-col sm:flex-row justify-center gap-4">
+          <Link
+            href="/contact"
+            className="inline-block px-8 py-3 border border-white/20 hover:border-white transition-all text-sm font-bold uppercase tracking-widest"
+          >
+            Start a Discussion
+          </Link>
+        </div>
+
+        {/* Share Section */}
+        <div className="pt-8 border-t border-white/10">
+          <p className="text-sm text-stone-400 mb-4">Share these thought-provoking discussions with your network</p>
+          <div className="inline-block">
+            <ShareRibbon
+              position="floating"
+              title="Reader Discussions - Nested Reality: A Density-Based Rewriting of Physics"
+              description="Explore thoughtful scholarly exchanges on density-based physics, quantum mechanics, and the nature of reality. Join readers and critics in examining the core ideas of Nested Reality."
+              url={typeof window !== 'undefined' ? `${window.location.origin}/discussions` : 'https://nestedreality.com/discussions'}
+            />
+          </div>
+        </div>
       </div>
     </div>
   );

@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import { Discussion } from '@/types';
 import { useRouter } from 'next/navigation';
+import SocialShare from '@/components/SocialShare';
 
 interface DiscussionSelectorProps {
   discussion: Discussion;
@@ -150,6 +151,15 @@ export default function DiscussionSelector({ discussion, isAuthenticated }: Disc
               {participant}
             </span>
           ))}
+        </div>
+
+        {/* Share Section */}
+        <div className="pt-4 border-t border-stone-100">
+          <SocialShare
+            url={`https://nestedreality.com/discussions#${discussion.id}`}
+            title={`${discussion.title} - Nested Reality Discussion`}
+            description={`${discussion.subtitle} A scholarly exchange exploring ${discussion.tags.join(', ')}. Join the conversation on density-based physics and the nature of reality.`}
+          />
         </div>
 
         {!isAuthenticated && (

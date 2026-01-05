@@ -4,6 +4,7 @@ import ReadingProgressTracker from '@/components/ReadingProgressTracker';
 import ReadingProgressStats from '@/components/ReadingProgressStats';
 import ReaderStatistics from '@/components/ReaderStatistics';
 import DiscussionSelector from '@/components/DiscussionSelector';
+import ShareRibbonClient from '@/components/ShareRibbonClient';
 import { DISCUSSIONS } from '@/lib/constants';
 
 export const dynamic = 'force-dynamic';
@@ -148,6 +149,25 @@ export default async function ReadersPage() {
               >
                 Learn More About the Book
               </a>
+            </div>
+
+            {/* Share Section */}
+            <div className="mt-12 pt-8 border-t border-gray-200">
+              <div className="text-center mb-6">
+                <h3 className="text-2xl font-bold text-gray-900 mb-3">Share Your Reading Journey</h3>
+                <p className="text-gray-600 max-w-2xl mx-auto">
+                  Help spread these thought-provoking discussions with your professional network.
+                  Share insights from your reading experience on LinkedIn, Facebook, or Twitter.
+                </p>
+              </div>
+              <div className="flex justify-center">
+                <ShareRibbonClient
+                  position="floating"
+                  title="Nested Reality Readers - Track Your Journey Through Revolutionary Physics"
+                  description="Join fellow readers exploring density-based physics through thoughtful discussions and scholarly exchanges. Track your reading progress and engage with key concepts from 'Nested Reality: A Density-Based Rewriting of Physics, Matter, and Life.'"
+                  url="https://nestedreality.com/readers"
+                />
+              </div>
             </div>
           </div>
         </div>
