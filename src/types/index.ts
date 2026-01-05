@@ -172,6 +172,21 @@ export interface AIReview {
   keyTakeaways?: string[];
 }
 
+export interface Discussion {
+  id: string;
+  title: string;
+  subtitle: string;
+  participants: string[];
+  date: string;
+  excerpt: string;
+  tags: string[];
+  messages: {
+    timestamp: string;
+    sender: string;
+    content: string;
+  }[];
+}
+
 export interface RegisterFormData {
   email: string;
   password: string;

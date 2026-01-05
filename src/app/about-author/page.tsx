@@ -30,7 +30,7 @@ export default function AboutAuthorPage() {
       <div className="space-y-12">
         <div className="aspect-square bg-stone-200 overflow-hidden">
           <img
-            src="/images/arun-bg.png"
+            src="/images/arun_2021.png"
             alt="Author portrait"
             className="w-full h-full object-cover"
           />
