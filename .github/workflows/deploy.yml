@@ -22,4 +22,4 @@ jobs:
             git pull origin main
             npm install
             npm run build
-            systemctl reload nginx
+            pm2 restart nested-reality || pm2 start npm --name "nested-reality" -- start
