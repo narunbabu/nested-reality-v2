@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { DISCUSSIONS } from '@/lib/constants';
 import { Discussion } from '@/types';
 import Link from 'next/link';
@@ -107,6 +107,38 @@ const parseMarkdown = (text: string): React.ReactNode => {
 
 export default function DiscussionsPage() {
   const [selectedDiscussion, setSelectedDiscussion] = useState<Discussion | null>(null);
+
+  // Update meta tags when discussion changes
+  useEffect(() => {
+    if (selectedDiscussion) {
+      // Update page title
+      document.title = `${selectedDiscussion.title} - Nested Reality Discussion`;
+
+      // Update Open Graph meta tags
+      updateMetaTag('og:title', `${selectedDiscussion.title} - Nested Reality Discussion`);
+      updateMetaTag('og:description', `${selectedDiscussion.subtitle} A scholarly exchange exploring ${selectedDiscussion.tags.join(', ')}.`);
+      updateMetaTag('twitter:title', `${selectedDiscussion.title} - Nested Reality Discussion`);
+      updateMetaTag('twitter:description', `${selectedDiscussion.subtitle} A scholarly exchange exploring ${selectedDiscussion.tags.join(', ')}.`);
+    } else {
+      // Reset to default
+      document.title = 'Reader Discussions - Nested Reality';
+      updateMetaTag('og:title', 'Reader Discussions - Nested Reality');
+      updateMetaTag('og:description', 'Thoughtful exchanges with readers, critics, and scholars exploring the core ideas of Nested Reality.');
+      updateMetaTag('twitter:title', 'Reader Discussions - Nested Reality');
+      updateMetaTag('twitter:description', 'Thoughtful exchanges with readers, critics, and scholars exploring the core ideas of Nested Reality.');
+    }
+  }, [selectedDiscussion]);
+
+  // Helper function to update meta tags
+  const updateMetaTag = (property: string, content: string) => {
+    let element = document.querySelector(`meta[property="${property}"]`) as HTMLMetaElement;
+    if (!element) {
+      element = document.createElement('meta');
+      element.setAttribute('property', property);
+      document.head.appendChild(element);
+    }
+    element.setAttribute('content', content);
+  };
 
   // Handle discussion selection with URL update
   const handleSelectDiscussion = (discussion: Discussion) => {
