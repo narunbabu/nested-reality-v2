@@ -37,6 +37,7 @@ export default function Navigation() {
     { href: '/explorer', label: 'Explorer' },
     { href: '/reviews', label: 'Reviews' },
     { href: '/blog', label: 'Blog' },
+    { href: '/discussions', label: 'Discussions' },
     { href: '/readers', label: 'Readers' },
     { href: '/media', label: 'Media' },
     { href: '/contact', label: 'Contact' },

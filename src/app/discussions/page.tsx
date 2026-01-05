@@ -5,6 +5,105 @@ import { DISCUSSIONS } from '@/lib/constants';
 import { Discussion } from '@/types';
 import Link from 'next/link';
 
+// Simple markdown parser for WhatsApp-style formatting with newline and bullet support
+const parseMarkdown = (text: string): React.ReactNode => {
+  const lines = text.split('\n');
+  const result: React.ReactNode[] = [];
+  let globalKeyCounter = 0;
+
+  const processLineContent = (content: string): React.ReactNode[] => {
+    const parts: React.ReactNode[] = [];
+    let lastIndex = 0;
+
+    // Regex patterns for markdown (order matters - bold before italic to prevent overlap)
+    const patterns = [
+      { regex: /\*\*([^*]+)\*\*/g, Component: 'strong' }, // **bold**
+      { regex: /`([^`]+)`/g, Component: 'code' },          // `code`
+      { regex: /\*([^*]+)\*/g, Component: 'em' },         // *italic*
+    ];
+
+    // Find all matches
+    const matches: Array<{ start: number; end: number; text: string; Component: string }> = [];
+
+    patterns.forEach(({ regex, Component }) => {
+      let match;
+      const tempRegex = new RegExp(regex.source, regex.flags);
+      while ((match = tempRegex.exec(content)) !== null) {
+        matches.push({
+          start: match.index,
+          end: match.index + match[0].length,
+          text: match[1],
+          Component
+        });
+      }
+    });
+
+    // Sort matches by position
+    matches.sort((a, b) => a.start - b.start);
+
+    // Filter out overlapping matches (keep first match in case of overlap)
+    const filteredMatches = matches.filter((match, index) => {
+      if (index === 0) return true;
+      const prevMatch = matches[index - 1];
+      return match.start >= prevMatch.end; // No overlap
+    });
+
+    // Build the result for this line
+    filteredMatches.forEach((match) => {
+      // Add text before match
+      if (match.start > lastIndex) {
+        parts.push(content.substring(lastIndex, match.start));
+      }
+
+      // Add formatted match
+      const Component = match.Component as keyof JSX.IntrinsicElements;
+      parts.push(
+        <Component key={`md-${globalKeyCounter++}`} className={Component === 'code' ? 'bg-stone-200 px-1 rounded text-sm' : ''}>
+          {match.text}
+        </Component>
+      );
+
+      lastIndex = match.end;
+    });
+
+    // Add remaining text
+    if (lastIndex < content.length) {
+      parts.push(content.substring(lastIndex));
+    }
+
+    return parts.length > 0 ? parts : [content];
+  };
+
+  lines.forEach((line, lineIndex) => {
+    // Check if line starts with bullet point
+    const isBullet = line.trim().startsWith('* ');
+
+    if (isBullet) {
+      // Remove bullet marker and process the rest
+      const bulletContent = line.trim().substring(2); // Remove "* "
+      const processedContent = processLineContent(bulletContent);
+
+      result.push(
+        <span key={`bullet-${globalKeyCounter++}`} className="flex gap-2">
+          <span>•</span>
+          <span>{processedContent}</span>
+        </span>
+      );
+    } else {
+      // Process line normally
+      const processedContent = processLineContent(line);
+      result.push(...processedContent);
+    }
+
+    // Add line break if not the last line
+    if (lineIndex < lines.length - 1) {
+      result.push(<br key={`br-${globalKeyCounter++}`} />);
+    }
+  });
+
+  return result.length > 0 ? result : text;
+};
+
 export default function DiscussionsPage() {
   const [selectedDiscussion, setSelectedDiscussion] = useState<Discussion | null>(null);
 
@@ -47,33 +146,51 @@ export default function DiscussionsPage() {
         </header>
 
         {/* Chat-style message thread */}
-        <div className="space-y-6">
+        <div className="space-y-1">
           {selectedDiscussion.messages.map((message, idx) => {
             const isArun = message.sender.toLowerCase().includes('arun');
+            const prevMessage = idx > 0 ? selectedDiscussion.messages[idx - 1] : null;
+            const isConsecutive = prevMessage && prevMessage.sender === message.sender;
+
             return (
               <div
                 key={idx}
-                className={`flex gap-4 ${isArun ? 'flex-row-reverse' : 'flex-row'}`}
+                className={`flex gap-4 ${isArun ? 'flex-row-reverse' : 'flex-row'} ${isConsecutive ? 'mt-1' : 'mt-6'}`}
               >
-                <div className={`w-10 h-10 rounded-full flex-shrink-0 ${isArun ? 'bg-gradient-to-br from-[#C5A059] to-amber-700' : 'bg-gradient-to-br from-stone-400 to-stone-600'}`}></div>
+                {/* Avatar - only show for first message in group */}
+                {!isConsecutive ? (
+                  <div className={`w-10 h-10 rounded-full flex-shrink-0 ${isArun ? 'bg-gradient-to-br from-[#C5A059] to-amber-700' : 'bg-gradient-to-br from-stone-400 to-stone-600'}`}></div>
+                ) : (
+                  <div className="w-10 flex-shrink-0"></div>
+                )}
+
                 <div className={`flex-1 ${isArun ? 'text-right' : 'text-left'}`}>
-                  <div className="flex items-baseline gap-3 mb-1">
-                    <span className={`text-sm font-bold ${isArun ? 'text-[#C5A059]' : 'text-stone-700'} ${isArun ? 'order-2' : 'order-1'}`}>
-                      {message.sender}
-                    </span>
-                    <span className={`text-xs text-stone-400 ${isArun ? 'order-1' : 'order-2'}`}>
+                  {/* Name and timestamp - only show name for first message */}
+                  {!isConsecutive ? (
+                    <div className="flex items-baseline gap-3 mb-1">
+                      <span className={`text-sm font-bold ${isArun ? 'text-[#C5A059]' : 'text-stone-700'} ${isArun ? 'order-1' : 'order-2'}`}>
+                        {message.sender}
+                      </span>
+                      <span className={`text-xs text-stone-400 ${isArun ? 'order-2' : 'order-1'}`}>
+                        {message.timestamp}
+                      </span>
+                    </div>
+                  ) : (
+                    <div className={`text-xs text-stone-400 mb-1 ${isArun ? 'text-right' : 'text-left'}`}>
                       {message.timestamp}
-                    </span>
-                  </div>
+                    </div>
+                  )}
+
+                  {/* Message bubble with parsed markdown */}
                   <div
-                    className={`inline-block max-w-3xl p-4 rounded-lg ${
+                    className={`inline-block max-w-3xl p-4 rounded-lg shadow-sm ${
                       isArun
-                        ? 'bg-gradient-to-br from-amber-50 to-orange-50 border border-amber-100'
-                        : 'bg-stone-50 border border-stone-200'
+                        ? 'bg-[#DCF8C6] border border-green-200'
+                        : 'bg-white border border-stone-300'
                     }`}
                   >
-                    <p className="text-stone-700 leading-relaxed whitespace-pre-wrap text-left">
-                      {message.content}
+                    <p className="text-stone-700 leading-relaxed text-left">
+                      {parseMarkdown(message.content)}
                     </p>
                   </div>
                 </div>
@@ -105,6 +222,15 @@ export default function DiscussionsPage() {
         <p className="text-stone-600 text-xl font-serif italic">
           Thoughtful exchanges with readers, critics, and scholars exploring the core ideas of Nested Reality.
         </p>
+        <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mt-4">
+          <p className="text-sm text-blue-800">
+            <strong>💡 Want to track your understanding?</strong> Visit the{' '}
+            <Link href="/readers" className="font-bold underline hover:text-blue-600">
+              Readers page
+            </Link>{' '}
+            to sign in and mark key discussion points that resonate with you.
+          </p>
+        </div>
       </header>
 
       <div className="grid gap-12">

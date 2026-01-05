@@ -187,6 +187,24 @@ export interface Discussion {
   }[];
 }
 
+export interface DiscussionSelection {
+  id: string;
+  user_id: string;
+  discussion_id: string;
+  message_indices: number[];
+  created_at: string;
+  updated_at: string;
+}
+
+export interface DiscussionStats {
+  total_readers: number;
+  total_selections: number;
+  popular_messages: {
+    message_index: number;
+    selection_count: number;
+  }[];
+}
+
 export interface RegisterFormData {
   email: string;
   password: string;
