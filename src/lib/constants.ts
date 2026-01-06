@@ -2,7 +2,8 @@ import { Concept, BlogPost, AIReview, Discussion } from '@/types';
 
 export const BOOK_METADATA = {
   title: "Nested Reality: A Density-Based Rewriting of Physics, Matter, and Life",
-  author: "Arun Nalamara",
+  author: "Arun Babu Nalamara",
+  tagline: "What if the universe is simpler than the stories we tell about it?",
   formats: {
     kindle: {
       asin: "B0GBSJPGKC",
@@ -22,7 +23,160 @@ export const BOOK_METADATA = {
     }
   }
 };
-
+// Data structure for the chapters with content derived from the book's summaries
+// Data structure with valid strings for citations (Page numbers from the PDF)
+export const TOC_DATA = [
+  {
+    part: "Part I: Deconstruction",
+    chapters: [
+      {
+        id: "01",
+        title: "The Question Nobody Asked",
+        desc: "Challenges the deeply ingrained assumption that motion requires a 'force'.",
+        gain: "You will learn to distinguish between what is observed (motion) and what is inferred (force), setting the stage for a physics based on imbalance rather than invisible hands.",
+        cite: "Page 8" 
+      },
+      {
+        id: "02",
+        title: "The Myth of Empty Space",
+        desc: "Investigates the paradox of a 'vacuum' that has physical properties.",
+        gain: "Replaces the idea of 'emptiness' with the 'Plenum Principle'—viewing space as a continuous medium of low density rather than a void.",
+        cite: "Page 16"
+      },
+      {
+        id: "03",
+        title: "The Problem with Particles",
+        desc: "Critiques the search for a fundamental 'indivisible' object.",
+        gain: "Redefines particles not as independent building blocks, but as 'child-bodies'—localized intensifications within a larger density field.",
+        cite: "Page 24"
+      },
+      {
+        id: "04",
+        title: "When Equations Work but Meaning Fails",
+        desc: "Explores the gap between mathematical prediction and physical understanding.",
+        gain: "Understand why predictive success (like Newton's) does not guarantee ontological truth, and how to separate the equation from the story we tell about it.",
+        cite: "Page 32"
+      },
+      {
+        id: "C1",
+        isConstellation: true,
+        title: "Constellation I: The Ontological Reset",
+        desc: "Consolidates the removal of Force, Vacuum, and Discrete Particles.",
+        gain: "A structural pause to verify the internal coherence of the arguments so far before building the new framework.",
+        cite: "Page 38"
+      }
+    ]
+  },
+  {
+    part: "Part II: Reconstruction",
+    chapters: [
+      {
+        id: "05",
+        title: "Imagine Density, Not Objects",
+        desc: "Introduces the book's core primitive: Density as 'Resistance to Reconfiguration'.",
+        gain: "You will start seeing the world as gradients of thickness and resistance rather than isolated objects separated by nothing.",
+        cite: "Page 46"
+      },
+      {
+        id: "06",
+        title: "The Universe as Nesting",
+        desc: "Explains how environments sit inside larger environments.",
+        gain: "Replaces 'containment' (objects in a box) with 'nesting' (intensifications within a field), establishing that context is fundamental to behavior.",
+        cite: "Page 52"
+      },
+      {
+        id: "07",
+        title: "Why Things Move Without Being Pushed",
+        desc: "Redefines motion as the 'cheapest' adjustment to density imbalance.",
+        gain: "Understand motion as a response to context (adjustment) rather than an effect of coercion (force). Nothing is pulled; everything settles.",
+        cite: "Page 60"
+      },
+      {
+        id: "08",
+        title: "Radial Gradient Consistency & Admissible Motion",
+        desc: "Introduces RGC: The rule that prevents instant collapse.",
+        gain: "Learn why planets orbit and systems rotate: Nature prefers smooth, gradual adjustments over violent, instantaneous ones.",
+        cite: "Page 70"
+      },
+      {
+        id: "C2",
+        isConstellation: true,
+        title: "Constellation II: The Mechanics of Continuity",
+        desc: "Formalizes Density, Nesting, and RGC into a closed structural system.",
+        gain: "A technical summary of how these three principles replace the need for gravity and other fundamental forces.",
+        cite: "Page 76"
+      }
+    ]
+  },
+  {
+    part: "Part III: Biology",
+    chapters: [
+      {
+        id: "09",
+        title: "How Matter Crystallizes",
+        desc: "Reframes 'formation' as the survival of compatible configurations.",
+        gain: "Shift from asking 'how was this created?' to 'how does this persist?'. Matter is motion that has learned to remember itself.",
+        cite: "Page 84"
+      },
+      {
+        id: "10",
+        title: "Chemistry Without Desire",
+        desc: "Removes anthropomorphic language (attraction, seeking) from chemistry.",
+        gain: "See chemical bonding as 'traffic management' of peripheral density (electrons) rather than atomic desire.",
+        cite: "Page 93"
+      },
+      {
+        id: "11",
+        title: "Life Is Not an Exception",
+        desc: "Demonstrates that life follows the same density rules as stars and crystals.",
+        gain: "Understand life as 'active regulation'—metabolism is simply the maintenance of density gradients against environmental drift.",
+        cite: "Page 102"
+      },
+      {
+        id: "C3",
+        isConstellation: true,
+        title: "Constellation III: From Crystallization to Regulation",
+        desc: "Unifies matter and life into a single structural continuum.",
+        gain: "Removes the artificial boundary between the 'living' and 'non-living' world.",
+        cite: "Page 108"
+      }
+    ]
+  },
+  {
+    part: "Part IV: Ethics",
+    chapters: [
+      {
+        id: "12",
+        title: "Time, Change, and Re-definition",
+        desc: "Treats time as a ledger of endurance rather than a flowing river.",
+        gain: "A comforting but precise view of death: not annihilation, but a 'redefinition' of structure when tolerance limits are exceeded.",
+        cite: "Page 114"
+      },
+      {
+        id: "13",
+        title: "A Universe Without Violence",
+        desc: "Argues that 'violence' is a failure of regulation, not a fundamental law.",
+        gain: "Discover why a universe without 'Force' is inherently non-violent, treating collisions and catastrophes as failures of tolerance rather than aggression.",
+        cite: "Page 122"
+      },
+      {
+        id: "14",
+        title: "What This Means for Us",
+        desc: "Derives a structural ethics from the physics of tolerance.",
+        gain: "Understand human responsibility not as obedience to rules, but as 'competence' in maintaining the stability of the systems we inhabit.",
+        cite: "Page 128"
+      },
+      {
+        id: "C4",
+        isConstellation: true,
+        title: "Constellation IV: The Ethics of Structure",
+        desc: "Final consolidation of Time, Responsibility, and Stewardship.",
+        gain: "Summarizes the ethical imperative: To act is to alter tolerance.",
+        cite: "Page 134"
+      }
+    ]
+  }
+];
 export const CONCEPTS: Concept[] = [
   {
     id: 'density',

@@ -112,10 +112,10 @@ export default function DiscussionsPage() {
   useEffect(() => {
     if (selectedDiscussion) {
       // Update page title
-      document.title = `${selectedDiscussion.title} -23 Nested Reality Discussion`;
+      document.title = `${selectedDiscussion.title} - Nested Reality Discussion`;
 
       // Update Open Graph meta tags
-      updateMetaTag('og:title', `${selectedDiscussion.title} -22 Nested Reality Discussion`);
+      updateMetaTag('og:title', `${selectedDiscussion.title} - Nested Reality Discussion`);
       updateMetaTag('og:description', `${selectedDiscussion.subtitle} A scholarly exchange exploring ${selectedDiscussion.tags.join(', ')}.`);
       updateMetaTag('twitter:title', `${selectedDiscussion.title} - Nested Reality Discussion`);
       updateMetaTag('twitter:description', `${selectedDiscussion.subtitle} A scholarly exchange exploring ${selectedDiscussion.tags.join(', ')}.`);
@@ -365,7 +365,7 @@ export default function DiscussionsPage() {
           <div className="inline-block">
             <ShareRibbon
               position="floating"
-              title={'Reader Discussions - Nested Reality \n\nExplore thoughtful scholarly exchanges on density-based physics, quantum mechanics, and the nature of reality. Join readers and critics in examining the core ideas of Nested Reality.'}
+              title={'Reader Discussions - Nested Reality'}
               description="Explore thoughtful scholarly exchanges on density-based physics, quantum mechanics, and the nature of reality. Join readers and critics in examining the core ideas of Nested Reality."
               url={typeof window !== 'undefined' ? `${window.location.origin}/discussions` : 'https://nestedreality.com/discussions'}
             />
