@@ -112,17 +112,17 @@ export default function DiscussionsPage() {
   useEffect(() => {
     if (selectedDiscussion) {
       // Update page title
-      document.title = `${selectedDiscussion.title} - Nested Reality Discussion`;
+      document.title = `${selectedDiscussion.title} -23 Nested Reality Discussion`;
 
       // Update Open Graph meta tags
-      updateMetaTag('og:title', `${selectedDiscussion.title} - Nested Reality Discussion`);
+      updateMetaTag('og:title', `${selectedDiscussion.title} -22 Nested Reality Discussion`);
       updateMetaTag('og:description', `${selectedDiscussion.subtitle} A scholarly exchange exploring ${selectedDiscussion.tags.join(', ')}.`);
       updateMetaTag('twitter:title', `${selectedDiscussion.title} - Nested Reality Discussion`);
       updateMetaTag('twitter:description', `${selectedDiscussion.subtitle} A scholarly exchange exploring ${selectedDiscussion.tags.join(', ')}.`);
     } else {
       // Reset to default
-      document.title = 'Reader Discussions - Nested Reality';
-      updateMetaTag('og:title', 'Reader Discussions - Nested Reality');
+      document.title = 'Reader Discussions2 - Nested Reality';
+      updateMetaTag('og:title', 'Reader Discussions1 - Nested Reality');
       updateMetaTag('og:description', 'Thoughtful exchanges with readers, critics, and scholars exploring the core ideas of Nested Reality.');
       updateMetaTag('twitter:title', 'Reader Discussions - Nested Reality');
       updateMetaTag('twitter:description', 'Thoughtful exchanges with readers, critics, and scholars exploring the core ideas of Nested Reality.');
@@ -157,8 +157,8 @@ export default function DiscussionsPage() {
 
   if (selectedDiscussion) {
     // Generate rich description for social sharing
-    const shareTitle = `${selectedDiscussion.title} - Nested Reality Discussion`;
-    const shareDescription = `${selectedDiscussion.subtitle} Join this thoughtful exchange exploring ${selectedDiscussion.tags.join(', ')}. A scholarly discussion on density-based physics and the nature of reality.`;
+    const shareTitle = selectedDiscussion.title;
+    const shareDescription = `Fascinating exchange between ${selectedDiscussion.participants.join(' and ')} on ${selectedDiscussion.subtitle.toLowerCase()} Exploring ${selectedDiscussion.tags.join(', ')} - a thought-provoking scholarly discussion on revolutionary physics concepts.`;
     const baseUrl = typeof window !== 'undefined' ? window.location.origin : 'https://nestedreality.com';
     const shareUrl = `${baseUrl}/discussions#${selectedDiscussion.id}`;
 
@@ -365,7 +365,7 @@ export default function DiscussionsPage() {
           <div className="inline-block">
             <ShareRibbon
               position="floating"
-              title="Reader Discussions - Nested Reality: A Density-Based Rewriting of Physics"
+              title={'Reader Discussions - Nested Reality \n\nExplore thoughtful scholarly exchanges on density-based physics, quantum mechanics, and the nature of reality. Join readers and critics in examining the core ideas of Nested Reality.'}
               description="Explore thoughtful scholarly exchanges on density-based physics, quantum mechanics, and the nature of reality. Join readers and critics in examining the core ideas of Nested Reality."
               url={typeof window !== 'undefined' ? `${window.location.origin}/discussions` : 'https://nestedreality.com/discussions'}
             />

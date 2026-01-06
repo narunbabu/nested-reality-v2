@@ -157,8 +157,8 @@ export default function DiscussionSelector({ discussion, isAuthenticated }: Disc
         <div className="pt-4 border-t border-stone-100">
           <SocialShare
             url={`https://nestedreality.com/discussions#${discussion.id}`}
-            title={`${discussion.title} - Nested Reality Discussion`}
-            description={`${discussion.subtitle} A scholarly exchange exploring ${discussion.tags.join(', ')}. Join the conversation on density-based physics and the nature of reality.`}
+            title={discussion.title}
+            description={`Fascinating exchange between ${discussion.participants.join(' and ')} on ${discussion.subtitle.toLowerCase()} Exploring ${discussion.tags.join(', ')} in this thought-provoking scholarly discussion.`}
           />
         </div>
 

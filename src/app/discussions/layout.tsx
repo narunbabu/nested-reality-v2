@@ -20,8 +20,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Reader Discussions - Nested Reality: Density-Based Physics',
-    description: 'Explore scholarly discussions on revolutionary physics concepts including density, gradient, and motion.',
+    title: 'A Scholarly Discussion: Rethinking Density, Gradient, and Motion',
+    description: 'Fascinating exchange between learned critic Subhrashis Saha and author Arun Nalamara on the true meaning of "Nested Reality" - exploring density as ontological primitive, Buddhist philosophy parallels, and revolutionary physics that challenges force-based models.',
     images: ['https://nestedreality.com/images/nested_reality_3d_transp.PNG'],
   },
 };
