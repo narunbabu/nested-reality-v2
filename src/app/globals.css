@@ -41,3 +41,63 @@ h3 {
   color: #f59e0b;
 }
 
+/* Form Elements - High Contrast for Visibility */
+input, textarea, select {
+  color: #1c1917 !important;
+  background-color: #ffffff !important;
+}
+
+input::placeholder, textarea::placeholder {
+  color: #78716c !important;
+  opacity: 1;
+}
+
+/* Dark theme form elements */
+[data-theme="dark"] input,
+[data-theme="dark"] textarea,
+[data-theme="dark"] select {
+  color: #f5f5f4 !important;
+  background-color: #1c1917 !important;
+  border-color: #44403c !important;
+}
+
+[data-theme="dark"] input::placeholder,
+[data-theme="dark"] textarea::placeholder {
+  color: #a8a29e !important;
+}
+
+/* Labels and form text */
+label {
+  color: #292524;
+  font-weight: 500;
+}
+
+[data-theme="dark"] label {
+  color: #e7e5e4;
+}
+
+/* General text contrast improvements */
+p, span, div {
+  color: inherit;
+}
+
+/* Ensure readable text on light backgrounds */
+.bg-white p,
+.bg-white span,
+.bg-white div,
+.bg-stone-50 p,
+.bg-stone-50 span,
+.bg-stone-50 div {
+  color: #292524;
+}
+
+/* Ensure readable text on dark backgrounds */
+.bg-stone-900 p,
+.bg-stone-900 span,
+.bg-stone-900 div,
+.bg-black p,
+.bg-black span,
+.bg-black div {
+  color: #e7e5e4;
+}
+
